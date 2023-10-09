@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:32:57 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/09 15:41:43 by rbenjami         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:06:08 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int check_doubles(char **map, t_map map_ram)
 	return (1);
 }
 
-static	int check_path(char **map, t_map map_ram)
+/* static	int check_path(char **map, t_map map_ram)
 {
 	int c;
 	int e;
@@ -109,15 +109,23 @@ static	int check_path(char **map, t_map map_ram)
 	e = 0;
 	if (c == map_ram.collectible && e == map_ram.exit)
 		return (0);
-	if (map[i][j] != 1)
-	//Flood Fill
-}
+	if (map[x][y] != 1)
+} */
 	
-void map_cpy(char **map, t_map map_ram)
+char **map_cpy(char **map, t_map map_ram)
 {
 	char **cpy_map;
-	cpy_map = malloc(sizeof (char *) * map_ram.height)
-	// Allocate all the memory needed to copy the double array
+	int i;
+
+    i = 0;
+    cpy_map = malloc(sizeof (char *) * map_ram.height);
+    while (i < map_ram.height)
+    {
+        cpy_map[i] = malloc(sizeof (char *) * (map_ram.width + 1));
+        ft_strlcpy(cpy_map[i], map[i], (map_ram.width + 1));
+        i++;
+    }
+    return(cpy_map);
 }
 
 int	validate_map(char **map)
@@ -128,7 +136,8 @@ int	validate_map(char **map)
 	if (check_rect(map, map_ram) == 0 ||check_content(map) == 0 ||
 		 check_doubles(map, map_ram) == 0 || check_walls(map, map_ram) == 0)
 		return (0);
-	if (!check_path(map_cpy(map, map_ram), map_ram))
-		return (0);
+    print_map(map_cpy(map, map_ram));
+	/* if (!check_path(map_cpy(map, map_ram), map_ram))
+		return (0); */
 	return (1);
 }
