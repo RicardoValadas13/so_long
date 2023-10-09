@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:32:57 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/09 14:23:49 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/09 15:41:43 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ static	int check_walls(char **map, t_map map_ram)
 		i++;
 	}
 	return (1);
-}
-
-static int	height(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		i++;
-	}
-	return (i);
 }
 
 static	int check_rect(char **map, t_map map_ram)
@@ -107,59 +95,40 @@ static int check_doubles(char **map, t_map map_ram)
 		}
 		i++;
 	}
-	printf("exit = %d\ncollectible = %d\nplayer = %d\n", map_ram.exit, map_ram.collectible, map_ram.player);
 	if(map_ram.exit > 1 || map_ram.collectible > 1 || map_ram.player > 1)
 		return (0);
 	return (1);
 }
 
-/* static	int check_path(char **map, t_map map_ram)
+static	int check_path(char **map, t_map map_ram)
 {
-	// Here I have to implement the flood fill recursive algorithm
-}  */
+	int c;
+	int e;
 
-static void find_pos(char **map, t_map *map_ram)
-{
-    int y;
-    int x;
-    
-    y = 0;
-    while (map[y])
-    {
-        x = 0;
-        while (map[y][x])
-        {
-            if (map[y][x] == 'P')
-            {
-                map_ram->player_x = x;
-                map_ram->player_y = y;
-            }
-            x++;
-        }
-        y++;
-    }
+	c = 0;
+	e = 0;
+	if (c == map_ram.collectible && e == map_ram.exit)
+		return (0);
+	if (map[i][j] != 1)
+	//Flood Fill
 }
-static void set_ram(char **map, t_map *map_ram)
+	
+void map_cpy(char **map, t_map map_ram)
 {
-	map_ram->collectible = 0;
-	map_ram->exit = 0;
-	map_ram->player = 0;
-	map_ram->width = ft_strlen(map[0]);
-	map_ram->height = height(map);
-    find_pos(map, map_ram);
+	char **cpy_map;
+	cpy_map = malloc(sizeof (char *) * map_ram.height)
+	// Allocate all the memory needed to copy the double array
 }
-// Now i have to store the initial position of the player, after it try to do the flood fill;
 
 int	validate_map(char **map)
 {
 	t_map map_ram;
+
 	set_ram(map, &map_ram);	
 	if (check_rect(map, map_ram) == 0 ||check_content(map) == 0 ||
 		 check_doubles(map, map_ram) == 0 || check_walls(map, map_ram) == 0)
 		return (0);
-	print_map(map);
-    printf("\nX = %dY = %d\n",map_ram.player_x, map_ram.player_y);
-	/* if (!check_path(map, map_ram))
-	return (0); */
+	if (!check_path(map_cpy(map, map_ram), map_ram))
+		return (0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/09 14:17:44 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/09 15:01:44 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int main(int ac, char **av);
 char **append(char *tmp_str, int fd);
 int	validate_map(char **map);
 void print_map(char **map);
+int	height(char **map);
+void find_pos(char **map, t_map *map_ram);
+void set_ram(char **map, t_map *map_ram);
 
 
 
