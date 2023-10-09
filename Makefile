@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:00:28 by rbenjami          #+#    #+#              #
-#    Updated: 2023/10/06 14:03:50 by rbenjami         ###   ########.fr        #
+#    Updated: 2023/10/06 18:34:10 by ricardovala      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -Isrcs/libft/inc -Iinc
 
-SRCS =	./srcs/so_long.c
+SRCS =	./srcs/so_long.c \
+		./srcs/checkers.c
 
 OBJS :=$(SRCS:.c=.o)
 
