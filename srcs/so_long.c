@@ -3,15 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:58:06 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/06 18:33:36 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/09 13:23:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
+void print_map(char **map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			write(1, &map[i][j], 1);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
 char	**append(char *tmp_str, int fd)
 {
 	char	*append;
@@ -34,7 +52,6 @@ char	**append(char *tmp_str, int fd)
 
 int	main(int ac, char **av)
 {
-	t_map	map_ram;
 	int		fd;
 	char	*first_line;
 	char	**map;
@@ -43,10 +60,7 @@ int	main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	first_line = get_next_line(fd);
 	map = append(first_line, fd);
-	map_ram.width = ft_strlen(map[0]);
-	map_ram.height = height(map);
-	printf("Width : %d\nHeight : %d\n", map_ram.width, map_ram.height);
-	if (validate_map(map, map_ram) == 0)
-		printf ("error\n");
+	if (validate_map(map) == 0)
+		printf ("Error\n");
 	return (1);
 }
