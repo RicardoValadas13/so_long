@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:32:57 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/09 13:29:39 by rbenjami         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:23:49 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,37 @@ static int check_doubles(char **map, t_map map_ram)
 /* static	int check_path(char **map, t_map map_ram)
 {
 	// Here I have to implement the flood fill recursive algorithm
-} */
+}  */
+
+static void find_pos(char **map, t_map *map_ram)
+{
+    int y;
+    int x;
+    
+    y = 0;
+    while (map[y])
+    {
+        x = 0;
+        while (map[y][x])
+        {
+            if (map[y][x] == 'P')
+            {
+                map_ram->player_x = x;
+                map_ram->player_y = y;
+            }
+            x++;
+        }
+        y++;
+    }
+}
 static void set_ram(char **map, t_map *map_ram)
 {
 	map_ram->collectible = 0;
 	map_ram->exit = 0;
 	map_ram->player = 0;
 	map_ram->width = ft_strlen(map[0]);
-	map_ram->height = height(map);	
+	map_ram->height = height(map);
+    find_pos(map, map_ram);
 }
 // Now i have to store the initial position of the player, after it try to do the flood fill;
 
@@ -135,6 +158,7 @@ int	validate_map(char **map)
 		 check_doubles(map, map_ram) == 0 || check_walls(map, map_ram) == 0)
 		return (0);
 	print_map(map);
+    printf("\nX = %dY = %d\n",map_ram.player_x, map_ram.player_y);
 	/* if (!check_path(map, map_ram))
 	return (0); */
 	return (1);
