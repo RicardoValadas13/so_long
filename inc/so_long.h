@@ -20,10 +20,13 @@ typedef struct  s_map
     int width;
     int height;
     int exit;
+    int exit_comp;
     int collectible;
+    int collectible_comp;
     int player;
     int player_x;
     int player_y;
+    int flood_fill;
 }   t_map;
 
 int main(int ac, char **av);
@@ -33,7 +36,7 @@ void print_map(char **map);
 int	height(char **map);
 void find_pos(char **map, t_map *map_ram);
 void set_ram(char **map, t_map *map_ram);
-
+char **map_cpy(char **map, t_map map_ram);
 
 
 #endif

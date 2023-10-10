@@ -46,11 +46,30 @@ void find_pos(char **map, t_map *map_ram)
     }
 }
 
+char **map_cpy(char **map, t_map map_ram)
+{
+	char **cpy_map;
+	int i;
+
+    i = 0;
+    cpy_map = malloc(sizeof (char *) * map_ram.height);
+    while (i < map_ram.height)
+    {
+        cpy_map[i] = malloc(sizeof (char *) * (map_ram.width + 1));
+        ft_strlcpy(cpy_map[i], map[i], (map_ram.width + 1));
+        i++;
+    }
+    return(cpy_map);
+}
+
 void set_ram(char **map, t_map *map_ram)
 {
 	map_ram->collectible = 0;
 	map_ram->exit = 0;
+    map_ram->collectible_comp = 0;
+	map_ram->exit_comp = 0;
 	map_ram->player = 0;
+    map_ram->flood_fill = 0;
 	map_ram->width = ft_strlen(map[0]);
 	map_ram->height = height(map);
     find_pos(map, map_ram);
