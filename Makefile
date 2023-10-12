@@ -32,10 +32,10 @@ OBJS_LIST = $(patsubst %.c, %.o, $(SCRS_LIST))
 OBJS_DIRECTORY = objs/
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJS_LIST))
 
-CC = gcc
+CC = cc
 FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
-LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -L$(MINILIBX_DIRECTORY) -lmlx_Linux -lXext -lX11 -lm
-INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I $(MINILIBX_HEADERS)
+LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -L$(MLX_DIRECTORY) -lmlx_Linux -lXext -lX11 -lm
+INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADER) -I $(MLX_HEADER)
 
 all: $(NAME)
 

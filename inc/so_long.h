@@ -31,13 +31,14 @@ typedef struct  s_map
 }   t_map;
 
 int main(int ac, char **av);
-char **append(char *tmp_str, int fd);
-int	validate_map(char **map);
+char **append(int fd);
+int	validate_map(char **map, t_map map_ram);
 void print_map(char **map);
 int	height(char **map);
 void find_pos(char **map, t_map *map_ram);
 void set_ram(char **map, t_map *map_ram);
 char **map_cpy(char **map, t_map map_ram);
+void	clean_map(char **map, int height);
 
 
 #endif

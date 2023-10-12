@@ -18,18 +18,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 
 	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
 	str3 = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str3)
 		return (NULL);
-	while (*s1)
+	while (s1 && *s1)
 	{
 		str3[i] = *s1;
 		i++;
 		s1++;
 	}
-	while (*s2)
+	while (s2 && *s2)
 	{
 		str3[i] = *s2;
 		i++;

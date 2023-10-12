@@ -52,11 +52,12 @@ char **map_cpy(char **map, t_map map_ram)
 	int i;
 
     i = 0;
-    cpy_map = malloc(sizeof (char *) * map_ram.height);
+    cpy_map = ft_calloc(sizeof (char *), map_ram.height + 1);
+    if(!cpy_map)
+        return (NULL);
     while (i < map_ram.height)
     {
-        cpy_map[i] = malloc(sizeof (char *) * (map_ram.width + 1));
-        ft_strlcpy(cpy_map[i], map[i], (map_ram.width + 1));
+        cpy_map[i] = ft_strdup(map[i]);
         i++;
     }
     return(cpy_map);

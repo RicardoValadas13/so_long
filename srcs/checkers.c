@@ -41,7 +41,7 @@ static	int check_rect(char **map, t_map map_ram)
 	int j;
 	
 	i = 0;
-	while (map[i])
+	while (i < map_ram.height)
 	{
 		j = 0;
 		while(map[i][j])
@@ -124,18 +124,22 @@ static	void check_path(char **map, int y, int x, t_map *map_ram)
 		check_path(map, y, x - 1, map_ram);
 }
 
-int	validate_map(char **map)
+int	validate_map(char **map, t_map map_ram)
 {
-	t_map map_ram;
+	char **cpy_map;
 
-	set_ram(map, &map_ram);	
-	if (check_rect(map, map_ram) == 0 ||check_content(map) == 0 ||
-		 check_doubles(map, &map_ram) == 0 || check_walls(map, map_ram) == 0)
+	cpy_map = map_cpy(map, map_ram);
+	if (check_rect(cpy_map, map_ram) == 0 ||check_content(cpy_map) == 0 ||
+		 check_doubles(cpy_map, &map_ram) == 0 || check_walls(cpy_map, map_ram) == 0)
 		return (0);
     /* print_map(map_cpy(map, map_ram));
 	printf("\nCollectibles : %d\nExit : %d\n", map_ram.collectible, map_ram.exit); */
-	check_path(map_cpy(map, map_ram), map_ram.player_y, map_ram.player_x, &map_ram);
+	check_path(cpy_map, map_ram.player_y, map_ram.player_x, &map_ram);
 	if (map_ram.flood_fill == 0)
+	{
+		clean_map(cpy_map, map_ram.height);
 		return (0);
+	}
+	clean_map(cpy_map, map_ram.height);
 	return (1);
 }
