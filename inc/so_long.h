@@ -13,7 +13,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <libft.h>
+#include "../mlx_linux/mlx.h"
+#include "../srcs/libft/inc/libft.h"
 
 typedef struct  s_map
 {

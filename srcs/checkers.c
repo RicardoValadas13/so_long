@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include "../inc/so_long.h"
 
 
 static	int check_walls(char **map, t_map map_ram)
@@ -102,15 +102,17 @@ static int check_doubles(char **map, t_map *map_ram)
 
 static	void check_path(char **map, int y, int x, t_map *map_ram)
 {
+	/* print_map(map);
+	printf("\n --- Flood Fill --- \n Position : x(%d)  y(%d)\n Collectible = %d\n Exit : %d\n", x, y, map_ram->collectible_comp, map_ram->exit_comp); */
+	if (map[y][x] == 'C')
+		map_ram->collectible_comp++;
+	if (map[y][x] == 'E')
+		map_ram->exit_comp++;
 	if (map_ram->collectible_comp == map_ram->collectible && map_ram->exit_comp == map_ram->exit)
 	{
 		map_ram->flood_fill = 1;
 		return ;
 	}
-	if (map[y][x] == 'C')
-		map_ram->collectible_comp++;
-	if (map[y][x] == 'E')
-		map_ram->exit_comp++;
 	map[y][x] = 'D';
 	if (map[y - 1][x] != '1' && map[y - 1][x] != 'D')
 		check_path(map, y - 1, x, map_ram);
@@ -130,8 +132,8 @@ int	validate_map(char **map)
 	if (check_rect(map, map_ram) == 0 ||check_content(map) == 0 ||
 		 check_doubles(map, &map_ram) == 0 || check_walls(map, map_ram) == 0)
 		return (0);
-    print_map(map_cpy(map, map_ram));
-	printf("\nCollectibles : %d\nExit : %d\n", map_ram.collectible, map_ram.exit);
+    /* print_map(map_cpy(map, map_ram));
+	printf("\nCollectibles : %d\nExit : %d\n", map_ram.collectible, map_ram.exit); */
 	check_path(map_cpy(map, map_ram), map_ram.player_y, map_ram.player_x, &map_ram);
 	if (map_ram.flood_fill == 0)
 		return (0);

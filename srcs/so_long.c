@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include "../inc/so_long.h"
 
 void print_map(char **map)
 {
@@ -55,12 +55,18 @@ int	main(int ac, char **av)
 	int		fd;
 	char	*first_line;
 	char	**map;
+	void	*mlx;
 
-	(void)ac;
-	fd = open(av[1], O_RDONLY);
-	first_line = get_next_line(fd);
-	map = append(first_line, fd);
-	if (validate_map(map) == 0)
-		printf ("Error\n");
+	
+	if (ac == 2)
+	{
+		mlx = mlx_init();
+		fd = open(av[1], O_RDONLY);
+		first_line = get_next_line(fd);
+		map = append(first_line, fd);
+		if (validate_map(map) == 0)
+			printf ("Error\n");
+		return (1);
+	}
 	return (1);
 }

@@ -12,42 +12,60 @@
 
 NAME = so_long
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -Isrcs/libft/inc -Iinc
+LIBFT_DIRECTORY = srcs/libft/
+LIBFT_HEADER = $(LIBFT_DIRECTORY)
+LIBFT = $(LIBFT_DIRECTORY)libft.a
 
-SRCS =	./srcs/so_long.c \
-		./srcs/checkers.c \
-		./srcs/checkers_utils.c
+MLX_DIRECTORY = mlx_linux/
+MLX_HEADER = $(MLX_DIRECTORY)
+MLX = $(MLX_DIRECTORY)libmlx.a
 
-OBJS :=$(SRCS:.c=.o)
+HEADERS_LIST = so_long.h
+HEADERS_DIRECTORY = inc/
+HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-#lib paths
-LIBFT_PATH = srcs/libft
+SCRS_LIST = checkers_utils.c checkers.c so_long.c
+SCRS_DIRECTORY = srcs/
+SCRS = $(addprefix $(SCRS_DIRECTORY), $(SCRS_LIST))
 
-#lib names
-LIBFT = $(LIBFT_PATH)/libft.a
+OBJS_LIST = $(patsubst %.c, %.o, $(SCRS_LIST))
+OBJS_DIRECTORY = objs/
+OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJS_LIST))
+
+CC = gcc
+FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -L$(MINILIBX_DIRECTORY) -lmlx_Linux -lXext -lX11 -lm
+INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I $(MINILIBX_HEADERS)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) 
-	@$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS) -L$(LIBFT_PATH) -lft
+$(NAME): $(LIBFT) $(MLX) $(OBJS_DIRECTORY) $(OBJS)
+	$(CC) $(FLAGS) $(INCLUDES) $(OBJS) $(LIBRARIES) -o $(NAME)
 
-%.o : %.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJS_DIRECTORY):
+	mkdir -p $(OBJS_DIRECTORY)
+
+$(OBJS_DIRECTORY)%.o : $(SCRS_DIRECTORY)%.c $(HEADERS)
+	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_PATH)
+	make -sC $(LIBFT_DIRECTORY)
+
+$(MLX):
+	make -sC $(MLX_DIRECTORY)
 
 clean:
-	@rm -f $(OBJS)
-	@$(MAKE) -C $(LIBFT_PATH) clean
-	
+	make -sC $(LIBFT_DIRECTORY) clean
+	rm -rf $(OBJS_DIRECTORY)
 
-fclean: clean 
-	@rm -f $(NAME)
-	@$(MAKE) -C $(LIBFT_PATH) fclean
+fclean: clean
+	rm -f $(MLX)
+	rm -f $(LIBFT)
+	make -sC $(LIBFT_DIRECTORY) clean
+	rm -f $(NAME)
 
-re: fclean all
+re:
+	make fclean
+	make all
 
-.PHONY: all clean fclean re
+.PHONY  : re fclean clean all
