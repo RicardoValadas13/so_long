@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/09 15:01:44 by rbenjami         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:55:17 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "../mlx_linux/mlx.h"
+#include "../mlx_mac/mlx.h"
 #include "../srcs/libft/inc/libft.h"
-
+//Linux keycodes
+#ifdef __linux__
 #define UP 65362
 #define DOWN 65364
 #define LEFT 65361
@@ -25,7 +26,20 @@
 #define S 115
 #define D 100
 #define ESC 65307
+#endif
 
+//Mac keycodes
+#ifdef __APPLE__
+#define UP 126
+#define DOWN 125
+#define LEFT 123
+#define RIGHT 124
+#define A 0
+#define W 13
+#define S 1
+#define D 2
+#define ESC 53
+#endif
 typedef struct  s_map
 {
 	int width;

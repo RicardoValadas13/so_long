@@ -3,20 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:00:28 by rbenjami          #+#    #+#              #
-#    Updated: 2023/10/09 15:02:36 by rbenjami         ###   ########.fr        #
+#    Updated: 2023/10/17 18:54:03 by ricardovala      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+	CFLAGS = -lmlx_Linux -lXext -lX11 -lm
+	MLX_DIRECTORY = mlx_linux/
+else ifeq ($(UNAME), Darwin)
+	CFLAGS = -lmlx -framework OpenGL -framework AppKit
+	MLX_DIRECTORY = mlx_mac/
+endif
+
+
 LIBFT_DIRECTORY = srcs/libft/
 LIBFT_HEADER = $(LIBFT_DIRECTORY)
 LIBFT = $(LIBFT_DIRECTORY)libft.a
 
-MLX_DIRECTORY = mlx_linux/
 MLX_HEADER = $(MLX_DIRECTORY)
 MLX = $(MLX_DIRECTORY)libmlx.a
 
@@ -34,7 +44,7 @@ OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJS_LIST))
 
 CC = cc
 FLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
-LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -L$(MLX_DIRECTORY) -lmlx_Linux -lXext -lX11 -lm
+LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -L$(MLX_DIRECTORY) $(CFLAGS)
 INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADER) -I $(MLX_HEADER)
 
 all: $(NAME)
@@ -68,4 +78,9 @@ re:
 	make fclean
 	make all
 
+git:
+	git add .
+	git commit
+	git push
+	
 .PHONY  : re fclean clean all

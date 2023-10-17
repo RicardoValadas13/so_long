@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:58:06 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/09 13:23:01 by rbenjami         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:55:42 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	set_game(t_game *game)
 void	end_game(t_game	*game)
 {
 	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
 	exit (1);
 }
 
 int	key_hook(int keycode, t_game *game)
 {
 	(void)game;
+	printf("%d\n",keycode);
 	if (keycode == RIGHT || keycode == D)
 			return (0);
 	if (keycode == LEFT || keycode == A)
