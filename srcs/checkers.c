@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:32:57 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/09 20:06:08 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/17 19:33:09 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,13 @@ static int check_doubles(char **map, t_map *map_ram)
 		}
 		i++;
 	}
-	if(map_ram->exit > 1 || map_ram->collectible > 1 || map_ram->player > 1)
+	if(map_ram->exit < 1 || map_ram->collectible < 1 || map_ram->player < 1)
 		return (0);
 	return (1);
 }
 
 static	void check_path(char **map, int y, int x, t_map *map_ram)
 {
-	/* print_map(map);
-	printf("\n --- Flood Fill --- \n Position : x(%d)  y(%d)\n Collectible = %d\n Exit : %d\n", x, y, map_ram->collectible_comp, map_ram->exit_comp); */
 	if (map[y][x] == 'C')
 		map_ram->collectible_comp++;
 	if (map[y][x] == 'E')

@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:58:06 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/17 18:55:42 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/17 19:49:39 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,47 @@ void	end_game(t_game	*game)
 	exit (1);
 }
 
+void move_player(t_game *game, int new_x, int new_y) {
+    char new_pos = game->map[new_y][new_x];
+    
+    if (new_pos == '0' || new_pos == 'C' || new_pos == 'E') {
+        if (new_pos == 'C') 
+		{
+            game->collectibles++;
+            game->map[new_y][new_x] = '0';
+        }
+        game->map[game->player_y][game->player_x] = '0';
+        game->player_x = new_x;
+        game->player_y = new_y;
+        game->map[new_y][new_x] = 'P';
+    }
+    
+    if (new_pos == 'E' && game->collectibles == game->map_ram.collectible) 
+	{
+		printf("You Won\n");
+        end_game(game);
+    }
+}
+
 int	key_hook(int keycode, t_game *game)
 {
-	(void)game;
-	printf("%d\n",keycode);
+	int	new_x;
+	int	new_y;
+	
+	new_x = game->player_x;
+	new_y = game->player_y;
 	if (keycode == RIGHT || keycode == D)
-			return (0);
+			new_x++;
 	if (keycode == LEFT || keycode == A)
-			return (0);
+			new_x--;
 	if (keycode == UP || keycode == W)
-			return (0);
+			new_y--;
 	if (keycode == DOWN || keycode == S)
-			return (0);
+			new_y++;
 	if (keycode == ESC)
 			end_game(game);
+	move_player(game, new_x, new_x);
+	set_game(game);
 	return (0);
 }
 
@@ -79,7 +106,6 @@ int	main(int ac, char **av)
 		error_msg("Invalid map\n");
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, map_ram.width * 32, map_ram.height * 32 , "So_Long");	
-	
 	set_sprites(&game);
 	set_game(&game);
 	mlx_key_hook(game.win, key_hook, &game);

@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/17 18:55:17 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/17 19:48:09 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,14 @@ typedef	struct s_game
 {
 	void	*mlx;
 	void	*win;
-	int	mvs;
 	char	**map;
+	int	map_width;
+	int	map_height;
+	int	player_x;
+	int	player_y;
+	int	collectibles;
+	int	win_condition;
+	t_map map_ram;
 	t_sprites	sprites;
 }	t_game;
 
