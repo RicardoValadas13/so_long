@@ -132,8 +132,6 @@ int	validate_map(char **map, t_map map_ram)
 	if (check_rect(cpy_map, map_ram) == 0 ||check_content(cpy_map) == 0 ||
 		 check_doubles(cpy_map, &map_ram) == 0 || check_walls(cpy_map, map_ram) == 0)
 		return (0);
-    /* print_map(map_cpy(map, map_ram));
-	printf("\nCollectibles : %d\nExit : %d\n", map_ram.collectible, map_ram.exit); */
 	check_path(cpy_map, map_ram.player_y, map_ram.player_x, &map_ram);
 	if (map_ram.flood_fill == 0)
 	{

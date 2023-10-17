@@ -12,79 +12,79 @@
 
 #include "../inc/so_long.h"
 
-void print_map(char **map)
-{
-	int i;
-	int j;
 
-	i = 0;
-	while(map[i])
+void	set_game(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (game->map[y])
 	{
-		j = 0;
-		while(map[i][j])
-		{
-			write(1, &map[i][j], 1);
-			j++;
+		x = 0;
+		while (game->map[y][x])
+		{	
+			if (game->map[y][x] == '1')
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.wall.img, x * game->sprites.wall.width, y * game->sprites.wall.height);
+			if (game->map[y][x] == '0')
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.space.img, x * game->sprites.space.width, y * game->sprites.space.height);
+			if (game->map[y][x] == 'C')
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.collectible.img, x * game->sprites.collectible.width, y * game->sprites.collectible.height);
+			if (game->map[y][x] == 'P')
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.player.img, x * game->sprites.player.width, y * game->sprites.player.height);
+			if (game->map[y][x] == 'E')
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.exit.img, x * game->sprites.exit.width, y * game->sprites.exit.height);
+		x++;
 		}
-		printf("\n");
-		i++;
+		y++;
 	}
 }
-char	**append(int fd)
-{
-	char	*append;
-	char	*map_str;
-	char	*tmp_str;
-	char	**map_mx;
 
-	map_str = NULL;
-	while (1)
-	{
-		append = get_next_line(fd);
-		if (append == NULL)
-			break ;
-		tmp_str = map_str;
-		map_str = ft_strjoin(map_str, append);
-		free(append);
-		free(tmp_str);
-	}
-	map_mx = ft_split(map_str, '\n');
-	free(map_str);
-	return (map_mx);
+void	end_game(t_game	*game)
+{
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	exit (1);
 }
 
-void	clean_map(char **map, int height)
+int	key_hook(int keycode, t_game *game)
 {
-	int i;
-
-	i = 0;
-	while (i < height)
-	{
-		free(map[i]);
-		i++;
-	}
-	free (map);
+	(void)game;
+	if (keycode == RIGHT || keycode == D)
+			return (0);
+	if (keycode == LEFT || keycode == A)
+			return (0);
+	if (keycode == UP || keycode == W)
+			return (0);
+	if (keycode == DOWN || keycode == S)
+			return (0);
+	if (keycode == ESC)
+			end_game(game);
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	int		fd;
-	char	**map;
-	void	*mlx;
 	t_map	map_ram;
+	t_game	game;
 
-	if (ac == 2)
-	{
-		mlx = mlx_init();
-		fd = open(av[1], O_RDONLY);
-		map = append(fd);
-		set_ram(map, &map_ram);	
-		if (validate_map(map, map_ram) == 0)
-			printf ("Error\n");
-		clean_map(map, map_ram.height);
-		close(fd);
+	if (ac != 2)
 		return (1);
-	}
-	(void)mlx;
-	return (1);
+	file_format(av[1]);
+	fd = open(av[1], O_RDONLY);
+	game.map = append(fd);
+	set_ram(game.map, &map_ram);	
+	if (validate_map(game.map, map_ram) == 0)
+		error_msg("Invalid map\n");
+	game.mlx = mlx_init();
+	game.win = mlx_new_window(game.mlx, map_ram.width * 32, map_ram.height * 32 , "So_Long");	
+	
+	set_sprites(&game);
+	set_game(&game);
+	mlx_key_hook(game.win, key_hook, &game);
+	mlx_loop(game.mlx);
+	clean_map(game.map, map_ram.height);
+	close(fd);
+	return (0);
 }
