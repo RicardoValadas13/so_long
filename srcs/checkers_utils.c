@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:46 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/09 15:01:49 by rbenjami         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:18:23 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void set_game_data(t_game *game)
     game->collectibles_ingame = 0;
 	game->exit = 0;
 	game->exit_comp = 0;
+    game->been_in_exit = 0;
 	game->player = 0;
     game->flood_fill = 0;
 	game->map_width = ft_strlen(game->map[0]);

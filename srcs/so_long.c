@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:58:06 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/17 19:49:39 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/18 13:24:31 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,20 @@ void move_player(t_game *game, int new_x, int new_y)
 	{
 		if (new_pos == 'C') 
 			game->collectibles_ingame++;
-		game->map[game->player_y][game->player_x] = '0';
+		if (game->been_in_exit == 1)
+		{
+			game->map[game->player_y][game->player_x] = 'E';
+			game->been_in_exit = 0;
+		}
+		else
+			game->map[game->player_y][game->player_x] = '0';
 		game->player_x = new_x;
 		game->player_y = new_y;
 		game->map[new_y][new_x] = 'P';
 	}
 	if (new_pos == 'E')
 	{
-		if (game->collectibles_ingame == game->collectibles_cmp)
+		if (game->collectibles_ingame == game->collectibles)
 		{
 			game->map[game->player_y][game->player_x] = '0';
 			game->player_x = new_x;
@@ -77,6 +83,7 @@ void move_player(t_game *game, int new_x, int new_y)
 			game->player_x = new_x;
 			game->player_y = new_y;
 			game->map[new_y][new_x] = 'P';
+			game->been_in_exit++;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/17 19:48:09 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/18 13:17:46 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ typedef	struct s_game
 	int	player;
 	int	player_x;
 	int	player_y;
-	int exit;
-	int exit_comp;
+	int	exit;
+	int	exit_comp;
+	int	been_in_exit;
 	int	collectibles;
 	int	collectibles_cmp;
 	int	collectibles_ingame;
