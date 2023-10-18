@@ -25,15 +25,17 @@ void	set_game(t_game *game)
 		while (game->map[y][x])
 		{	
 			if (game->map[y][x] == '1')
-				mlx_put_image_to_window(game->mlx, game->win, game->sprites.wall.img, x * game->sprites.wall.width, y * game->sprites.wall.height);
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.wall1.img, x * game->sprites.wall1.width, y * game->sprites.wall1.height);
 			if (game->map[y][x] == '0')
-				mlx_put_image_to_window(game->mlx, game->win, game->sprites.space.img, x * game->sprites.space.width, y * game->sprites.space.height);
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.floor.img, x * game->sprites.floor.width, y * game->sprites.floor.height);
 			if (game->map[y][x] == 'C')
 				mlx_put_image_to_window(game->mlx, game->win, game->sprites.collectible.img, x * game->sprites.collectible.width, y * game->sprites.collectible.height);
 			if (game->map[y][x] == 'P')
 				mlx_put_image_to_window(game->mlx, game->win, game->sprites.player.img, x * game->sprites.player.width, y * game->sprites.player.height);
-			if (game->map[y][x] == 'E')
+			if (game->map[y][x] == 'E' && game->collectibles != game->collectibles_ingame)
 				mlx_put_image_to_window(game->mlx, game->win, game->sprites.exit.img, x * game->sprites.exit.width, y * game->sprites.exit.height);
+			if (game->map[y][x] == 'E' && game->collectibles == game->collectibles_ingame)
+				mlx_put_image_to_window(game->mlx, game->win, game->sprites.openexit.img, x * game->sprites.openexit.width, y * game->sprites.openexit.height);
 		x++;
 		}
 		y++;
@@ -44,6 +46,13 @@ void	end_game(t_game	*game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	exit (1);
+}
+
+void	change_block(t_game *game, int new_x, int new_y)
+{
+		game->player_x = new_x;
+		game->player_y = new_y;
+		game->map[new_y][new_x] = 'P';
 }
 
 void move_player(t_game *game, int new_x, int new_y) 
@@ -62,32 +71,24 @@ void move_player(t_game *game, int new_x, int new_y)
 		}
 		else
 			game->map[game->player_y][game->player_x] = '0';
-		game->player_x = new_x;
-		game->player_y = new_y;
-		game->map[new_y][new_x] = 'P';
+		change_block(game, new_x, new_y);
 	}
 	if (new_pos == 'E')
 	{
 		if (game->collectibles_ingame == game->collectibles)
 		{
 			game->map[game->player_y][game->player_x] = '0';
-			game->player_x = new_x;
-			game->player_y = new_y;
-			game->map[new_y][new_x] = 'P';
-			printf("You Won\n");
+			change_block(game, new_x, new_y);
 			end_game(game);
 		}
 		else
 		{
 			game->map[game->player_y][game->player_x] = '0';
-			game->player_x = new_x;
-			game->player_y = new_y;
-			game->map[new_y][new_x] = 'P';
+			change_block(game, new_x, new_y);
 			game->been_in_exit++;
 		}
 	}
 }
-
 
 int	key_hook(int keycode, t_game *game)
 {

@@ -54,10 +54,12 @@ typedef struct	s_img {
 typedef struct	s_sprites
 {
 	t_img	exit;
+	t_img	openexit;
 	t_img	collectible;
 	t_img	player;
-	t_img	wall;
-	t_img	space;
+	t_img	wall1;
+	t_img	wall2;
+	t_img	floor;
 }	t_sprites;
 
 typedef	struct s_game
@@ -93,5 +95,6 @@ void	error_msg(char *str);
 void	file_format(char *str);
 void	clean_mapcpy(char **map, t_game *game);
 void set_game_data(t_game *game);
+void	change_block(t_game *game, int new_x, int new_y);
 
 #endif
