@@ -40,19 +40,6 @@
 #define D 2
 #define ESC 53
 #endif
-typedef struct  s_map
-{
-	int width;
-	int height;
-	int exit;
-	int exit_comp;
-	int collectible;
-	int collectible_comp;
-	int player;
-	int player_x;
-	int player_y;
-	int flood_fill;
-}	t_map;
 
 typedef struct	s_img {
 	void	*img;
@@ -80,26 +67,30 @@ typedef	struct s_game
 	char	**map;
 	int	map_width;
 	int	map_height;
+	int	player;
 	int	player_x;
 	int	player_y;
+	int exit;
+	int exit_comp;
 	int	collectibles;
+	int	collectibles_cmp;
+	int	collectibles_ingame;
+	int	flood_fill;
 	int	win_condition;
-	t_map map_ram;
 	t_sprites	sprites;
 }	t_game;
 
 char **append(int fd);
-int	validate_map(char **map, t_map map_ram);
+int	validate_map(t_game	*game);
 void print_map(char **map);
 int	height(char **map);
-void find_pos(char **map, t_map *map_ram);
-void set_ram(char **map, t_map *map_ram);
-char **map_cpy(char **map, t_map map_ram);
-void	clean_map(char **map, int height);
+void find_pos(t_game *game);
+char **map_cpy(t_game *game);
+void	clean_map(t_game *game);
 void    set_sprites(t_game *game);
-void	set_game(t_game *game);
 void	error_msg(char *str);
 void	file_format(char *str);
-
+void	clean_mapcpy(char **map, t_game *game);
+void set_game_data(t_game *game);
 
 #endif

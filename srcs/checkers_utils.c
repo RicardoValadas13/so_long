@@ -24,21 +24,21 @@ int	height(char **map)
 	return (i);
 }
 
-void find_pos(char **map, t_map *map_ram)
+void find_pos(t_game *game)
 {
     int y;
     int x;
     
     y = 0;
-    while (map[y])
+    while (game->map[y])
     {
         x = 0;
-        while (map[y][x])
+        while (game->map[y][x])
         {
-            if (map[y][x] == 'P')
+            if (game->map[y][x] == 'P')
             {
-                map_ram->player_x = x;
-                map_ram->player_y = y;
+                game->player_x = x;
+                game->player_y = y;
             }
             x++;
         }
@@ -46,32 +46,32 @@ void find_pos(char **map, t_map *map_ram)
     }
 }
 
-char **map_cpy(char **map, t_map map_ram)
+char **map_cpy(t_game *game)
 {
 	char **cpy_map;
 	int i;
 
     i = 0;
-    cpy_map = ft_calloc(sizeof (char *), map_ram.height + 1);
+    cpy_map = ft_calloc(sizeof (char *), game->map_height + 1);
     if(!cpy_map)
         return (NULL);
-    while (i < map_ram.height)
+    while (i < game->map_height)
     {
-        cpy_map[i] = ft_strdup(map[i]);
+        cpy_map[i] = ft_strdup(game->map[i]);
         i++;
     }
     return(cpy_map);
 }
-
-void set_ram(char **map, t_map *map_ram)
+void set_game_data(t_game *game)
 {
-	map_ram->collectible = 0;
-	map_ram->exit = 0;
-    map_ram->collectible_comp = 0;
-	map_ram->exit_comp = 0;
-	map_ram->player = 0;
-    map_ram->flood_fill = 0;
-	map_ram->width = ft_strlen(map[0]);
-	map_ram->height = height(map);
-    find_pos(map, map_ram);
+	game->collectibles = 0;
+    game->collectibles_cmp = 0;
+    game->collectibles_ingame = 0;
+	game->exit = 0;
+	game->exit_comp = 0;
+	game->player = 0;
+    game->flood_fill = 0;
+	game->map_width = ft_strlen(game->map[0]);
+	game->map_height = height(game->map);
+    find_pos(game);
 }

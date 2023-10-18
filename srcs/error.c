@@ -47,12 +47,25 @@ char	**append(int fd)
 	return (map_mx);
 }
 
-void	clean_map(char **map, int height)
+void	clean_map(t_game *game)
 {
 	int i;
 
 	i = 0;
-	while (i < height)
+	while (i < game->map_height)
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free (game->map);
+}
+
+void	clean_mapcpy(char **map, t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (i < game->map_height)
 	{
 		free(map[i]);
 		i++;
