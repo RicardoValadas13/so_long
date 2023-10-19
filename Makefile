@@ -6,7 +6,7 @@
 #    By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:00:28 by rbenjami          #+#    #+#              #
-#    Updated: 2023/10/17 19:05:45 by ricardovala      ###   ########.fr        #
+#    Updated: 2023/10/19 13:03:18 by ricardovala      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,15 @@ HEADERS_LIST = so_long.h
 HEADERS_DIRECTORY = inc/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SCRS_LIST = checkers_utils.c checkers.c so_long.c sprites.c error.c
+SCRS_LIST = checkers_utils.c \
+			checkers.c \
+			error.c \
+			game_logic.c \
+			game_render.c \
+			game_sprites.c \
+			key_handling.c \
+			so_long_utils.c \
+			so_long.c
 SCRS_DIRECTORY = srcs/
 SCRS = $(addprefix $(SCRS_DIRECTORY), $(SCRS_LIST))
 

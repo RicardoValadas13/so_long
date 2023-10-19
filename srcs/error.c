@@ -1,68 +1,14 @@
 #include "../inc/so_long.h"
 
-void print_map(char **map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while(map[i])
-	{
-		j = 0;
-		while(map[i][j])
-		{
-			write(1, &map[i][j], 1);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
-
 void	error_msg(char *str)
 {
-	write(2 , str, ft_strlen(str));
-	exit (1);
-}
-char	**append(int fd)
-{
-	char	*append;
-	char	*map_str;
-	char	*tmp_str;
-	char	**map_mx;
-
-	map_str = NULL;
-	while (1)
-	{
-		append = get_next_line(fd);
-		if (append == NULL)
-			break ;
-		tmp_str = map_str;
-		map_str = ft_strjoin(map_str, append);
-		free(append);
-		free(tmp_str);
-	}
-	map_mx = ft_split(map_str, '\n');
-	free(map_str);
-	return (map_mx);
-}
-
-void	clean_map(t_game *game)
-{
-	int i;
-
-	i = 0;
-	while (i < game->map_height)
-	{
-		free(game->map[i]);
-		i++;
-	}
-	free (game->map);
+	write(2, str, ft_strlen(str));
+	exit(1);
 }
 
 void	clean_mapcpy(char **map, t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->map_height)
@@ -70,16 +16,45 @@ void	clean_mapcpy(char **map, t_game *game)
 		free(map[i]);
 		i++;
 	}
-	free (map);
+	free(map);
 }
 
 void	file_format(char *str)
 {
-	char *cmp;
+	char	*cmp;
 
 	cmp = ft_strchr(str, '.');
 	if (ft_strncmp(".ber", cmp, ft_strlen(cmp)) != 0 && access(str, F_OK) == 0)
 		error_msg("Incorrect file format\n");
 	else if (access(str, F_OK) != 0)
 		error_msg("File not found\n");
+}
+void	clean_map(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->map_height)
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free(game->map);
+}
+
+char	**map_cpy(t_game *game)
+{
+	char	**cpy_map;
+	int		i;
+
+	i = 0;
+	cpy_map = ft_calloc(sizeof(char *), game->map_height + 1);
+	if (!cpy_map)
+		return (NULL);
+	while (i < game->map_height)
+	{
+		cpy_map[i] = ft_strdup(game->map[i]);
+		i++;
+	}
+	return (cpy_map);
 }
