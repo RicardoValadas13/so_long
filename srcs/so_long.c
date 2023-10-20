@@ -31,6 +31,7 @@ int	main(int ac, char **av)
 	set_sprites(&game);
 	set_game_window(&game);
 	mlx_hook(game.win, 02, (1L << 0), key_hook, &game);
+	mlx_hook(game.win, 17, 0, end_game, &game);
 	mlx_loop(game.mlx);
 	clean_map(&game);
 	close(fd);

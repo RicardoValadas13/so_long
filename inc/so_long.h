@@ -41,60 +41,6 @@
 #  define ESC 53
 # endif
 
-
-
-" 	c #433119",
-".	c #C7C5A7",
-"+	c #A1957A",
-"@	c #9A8B6E",
-"#	c #948465",
-"$	c #4D401F",
-"%	c #85755C",
-"&	c #7A6E58",
-"*	c #916A3B",
-"=	c #78652B",
-"-	c #4D381C",
-";	c #736244",
-">	c #664839",
-",	c #C3C1A2",
-"'	c #5E352D",
-")	c #C5A260",
-"!	c #595652",
-"~	c #FFFFFF",
-
-" 	c #433119",
-".	c #C7C5A7",
-"+	c #A1957A",
-"@	c #9A8B6E",
-"#	c #948465",
-"$	c #4D401F",
-"%	c #85755C",
-"&	c #7A6E58",
-"*	c #916A3B",
-"=	c #78652B",
-"-	c #4D381C",
-";	c #736244",
-">	c #664839",
-",	c #C3C1A2",
-"'	c #5E352D",
-")	c #C5A260",
-"!	c #595652",
-"~	c #FFFFFF",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef struct s_img
 {
 	void		*img;
@@ -164,7 +110,7 @@ void			move_to_collectible(t_game *game, int new_x, int new_y);
 void			move_to_exit(t_game *game, int new_x, int new_y);
 
 // game_render.c functions
-void			end_game(t_game *game);
+int				end_game(t_game *game);
 void			set_game_window(t_game *game);
 void			set_game_data(t_game *game);
 void			set_game_sprites(t_game *game, int x, int y);

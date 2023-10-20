@@ -54,7 +54,7 @@ void	move_player(t_game *game, int new_x, int new_y)
 		move_to_empty_block(game, new_x, new_y);
 	if (new_pos == 'C' && game->been_in_exit == 0)
 		move_to_collectible(game, new_x, new_y);
-	if (game->been_in_exit == 1)
+	if (game->been_in_exit == 1 && new_pos != '1')
 	{
 		change_block(game, new_x, new_y, 'E');
 		game->been_in_exit = 0;

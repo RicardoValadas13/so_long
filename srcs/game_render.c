@@ -12,10 +12,21 @@
 
 #include "../inc/so_long.h"
 
-void	end_game(t_game *game)
+void	destroy_img(t_game	*game)
 {
+	mlx_destroy_image(game->mlx, game->sprites.wall1.img);
+	mlx_destroy_image(game->mlx, game->sprites.exit.img);
+	mlx_destroy_image(game->mlx, game->sprites.collectible.img);
+	mlx_destroy_image(game->mlx, game->sprites.floor.img);
+	mlx_destroy_image(game->mlx, game->sprites.openexit.img);
+	mlx_destroy_image(game->mlx, game->sprites.player.img);
+
+}
+int	end_game(t_game *game)
+{
+	destroy_img(game);
 	mlx_destroy_window(game->mlx, game->win);
-	mlx_clear_window(game->mlx, game->win);
+	free(game->mlx);
 	exit(1);
 }
 void	set_game_sprites(t_game *game, int x, int y)
@@ -50,7 +61,6 @@ void	set_game_window(t_game *game)
 	int	y;
 
 	y = 0;
-	xpm_parser("../imgs/wall2.xpm");
 	while (game->map[y])
 	{
 		x = 0;

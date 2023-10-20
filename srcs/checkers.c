@@ -15,7 +15,6 @@
 int	validate_map(t_game *game)
 {
 	char **cpy_map;
-	xpm_parser("../img/exit.xpm");
 	cpy_map = map_cpy(game);
 	if (check_rect(cpy_map, game) == 0 || check_content(cpy_map) == 0
 		|| check_doubles(cpy_map, game) == 0 || check_walls(cpy_map, game) == 0)

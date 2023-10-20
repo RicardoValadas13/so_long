@@ -42,8 +42,8 @@ SCRS_LIST = checkers_utils.c \
 			game_sprites.c \
 			key_handling.c \
 			so_long_utils.c \
-			so_long.c \
-			xpm_parser.c
+			so_long.c
+
 SCRS_DIRECTORY = srcs/
 SCRS = $(addprefix $(SCRS_DIRECTORY), $(SCRS_LIST))
 
