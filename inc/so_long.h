@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/19 13:11:45 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/19 19:07:15 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,60 @@
 #  define D 2
 #  define ESC 53
 # endif
+
+
+
+" 	c #433119",
+".	c #C7C5A7",
+"+	c #A1957A",
+"@	c #9A8B6E",
+"#	c #948465",
+"$	c #4D401F",
+"%	c #85755C",
+"&	c #7A6E58",
+"*	c #916A3B",
+"=	c #78652B",
+"-	c #4D381C",
+";	c #736244",
+">	c #664839",
+",	c #C3C1A2",
+"'	c #5E352D",
+")	c #C5A260",
+"!	c #595652",
+"~	c #FFFFFF",
+
+" 	c #433119",
+".	c #C7C5A7",
+"+	c #A1957A",
+"@	c #9A8B6E",
+"#	c #948465",
+"$	c #4D401F",
+"%	c #85755C",
+"&	c #7A6E58",
+"*	c #916A3B",
+"=	c #78652B",
+"-	c #4D381C",
+";	c #736244",
+">	c #664839",
+",	c #C3C1A2",
+"'	c #5E352D",
+")	c #C5A260",
+"!	c #595652",
+"~	c #FFFFFF",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 typedef struct s_img
 {
@@ -105,11 +159,15 @@ char			**map_cpy(t_game *game);
 // game_logic.c functions
 void			change_block(t_game *game, int new_x, int new_y, char c);
 void			move_player(t_game *game, int new_x, int new_y);
+void			move_to_empty_block(t_game *game, int new_x, int new_y);
+void			move_to_collectible(t_game *game, int new_x, int new_y);
+void			move_to_exit(t_game *game, int new_x, int new_y);
 
 // game_render.c functions
 void			end_game(t_game *game);
 void			set_game_window(t_game *game);
 void			set_game_data(t_game *game);
+void			set_game_sprites(t_game *game, int x, int y);
 
 // game_sprites.c functions
 void			set_sprites(t_game *game);
@@ -121,7 +179,14 @@ int				key_hook(int keycode, t_game *game);
 int				height(char **map);
 char			**append(int fd);
 void			find_pos(t_game *game);
-
 int				key_hook(int keycode, t_game *game);
 
+// This is for the bonus part
+// xpm_parser.c
+typedef struct s_parser
+{
+	char		**color;
+	char		**img_bites;
+}				t_parser;
+void			xpm_parser(char *file); 
 #endif

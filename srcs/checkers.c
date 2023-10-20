@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:32:57 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/19 13:07:13 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/19 18:49:46 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	validate_map(t_game *game)
 {
 	char **cpy_map;
-
+	xpm_parser("../img/exit.xpm");
 	cpy_map = map_cpy(game);
 	if (check_rect(cpy_map, game) == 0 || check_content(cpy_map) == 0
 		|| check_doubles(cpy_map, game) == 0 || check_walls(cpy_map, game) == 0)

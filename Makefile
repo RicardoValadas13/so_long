@@ -6,7 +6,7 @@
 #    By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:00:28 by rbenjami          #+#    #+#              #
-#    Updated: 2023/10/19 13:03:18 by ricardovala      ###   ########.fr        #
+#    Updated: 2023/10/19 18:00:45 by ricardovala      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SCRS_LIST = checkers_utils.c \
 			game_sprites.c \
 			key_handling.c \
 			so_long_utils.c \
-			so_long.c
+			so_long.c \
+			xpm_parser.c
 SCRS_DIRECTORY = srcs/
 SCRS = $(addprefix $(SCRS_DIRECTORY), $(SCRS_LIST))
 
