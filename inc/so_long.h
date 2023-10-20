@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/19 19:07:15 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 17:36:44 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ typedef struct s_sprites
 	t_img		openexit;
 	t_img		collectible;
 	t_img		player;
+	t_img		animdown;
+	t_img		animup;
+	t_img		animleft;
+	t_img		animright;
 	t_img		wall;
 	t_img		floor;
 }				t_sprites;
@@ -71,6 +75,8 @@ typedef struct s_game
 	int			map_width;
 	int			map_height;
 	int			player;
+	int			old_x;
+	int			old_y;
 	int			player_x;
 	int			player_y;
 	int			exit;
@@ -114,6 +120,7 @@ int				end_game(t_game *game);
 void			set_game_window(t_game *game);
 void			set_game_data(t_game *game);
 void			set_game_sprites(t_game *game, int x, int y);
+void			set_animsprites(t_game *game);
 
 // game_sprites.c functions
 void			set_sprites(t_game *game);

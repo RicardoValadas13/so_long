@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:19:59 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/19 17:20:00 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 17:20:18 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,21 @@ void	set_sprites(t_game *game)
 		&game->sprites.openexit.height);
 	game->sprites.floor.img = mlx_xpm_file_to_image(game->mlx, "img/grass.xpm",
 		&game->sprites.floor.width, &game->sprites.floor.height);
+	set_animsprites(game);
+}
+
+void	set_animsprites(t_game *game)
+{
+	game->sprites.animdown.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/catdown.xpm", &game->sprites.animdown.width,
+		&game->sprites.animdown.height);
+	game->sprites.animup.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/catup.xpm", &game->sprites.animup.width,
+		&game->sprites.animup.height);
+	game->sprites.animleft.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/catleft.xpm", &game->sprites.animleft.width,
+		&game->sprites.animleft.height);
+	game->sprites.animright.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/catright.xpm", &game->sprites.animright.width,
+		&game->sprites.animright.height);
 }

@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:19:54 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/19 18:04:44 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 17:38:23 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ int	end_game(t_game *game)
 	free(game->mlx);
 	exit(1);
 }
+
+void	player_animation(t_game *game, int x, int y)
+{
+	if (x - game->old_x > 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animright.img,
+			x * game->sprites.animright.width, y * game->sprites.animright.height);
+	if (x - game->old_x < 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animleft.img,
+			x * game->sprites.animleft.width, y * game->sprites.animleft.height);
+	if (y - game->old_y > 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animdown.img,
+			x * game->sprites.animdown.width, y * game->sprites.animdown.height);
+	if (y - game->old_y < 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animup.img,
+			x * game->sprites.animup.width, y * game->sprites.animup.height);
+}
 void	set_game_sprites(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == '1')
@@ -42,8 +58,7 @@ void	set_game_sprites(t_game *game, int x, int y)
 			game->sprites.collectible.img, x * game->sprites.collectible.width,
 			y * game->sprites.collectible.height);
 	if (game->map[y][x] == 'P')
-		mlx_put_image_to_window(game->mlx, game->win, game->sprites.player.img,
-			x * game->sprites.player.width, y * game->sprites.player.height);
+		player_animation(game, x, y);
 	if (game->map[y][x] == 'E'
 		&& game->collectibles != game->collectibles_ingame)
 		mlx_put_image_to_window(game->mlx, game->win, game->sprites.exit.img, x
