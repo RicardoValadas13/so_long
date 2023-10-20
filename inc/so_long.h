@@ -55,11 +55,11 @@ typedef struct s_img
 typedef struct s_sprites
 {
 	t_img		exit;
+	t_img		exitcat;
 	t_img		openexit;
 	t_img		collectible;
 	t_img		player;
-	t_img		wall1;
-	t_img		wall2;
+	t_img		wall;
 	t_img		floor;
 }				t_sprites;
 

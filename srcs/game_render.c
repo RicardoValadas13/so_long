@@ -14,7 +14,7 @@
 
 void	destroy_img(t_game	*game)
 {
-	mlx_destroy_image(game->mlx, game->sprites.wall1.img);
+	mlx_destroy_image(game->mlx, game->sprites.wall.img);
 	mlx_destroy_image(game->mlx, game->sprites.exit.img);
 	mlx_destroy_image(game->mlx, game->sprites.collectible.img);
 	mlx_destroy_image(game->mlx, game->sprites.floor.img);
@@ -32,8 +32,8 @@ int	end_game(t_game *game)
 void	set_game_sprites(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == '1')
-		mlx_put_image_to_window(game->mlx, game->win, game->sprites.wall1.img, x
-			* game->sprites.wall1.width, y * game->sprites.wall1.height);
+		mlx_put_image_to_window(game->mlx, game->win, game->sprites.wall.img, x
+			* game->sprites.wall.width, y * game->sprites.wall.height);
 	if (game->map[y][x] == '0')
 		mlx_put_image_to_window(game->mlx, game->win, game->sprites.floor.img, x
 			* game->sprites.floor.width, y * game->sprites.floor.height);
