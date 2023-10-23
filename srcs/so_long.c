@@ -22,6 +22,8 @@ int	main(int ac, char **av)
 	file_format(av[1]);
 	fd = open(av[1], O_RDONLY);
 	game.map = append(fd);
+	if (!game.map)
+		return (0);
 	set_game_data(&game);
 	if (validate_map(&game) == 0)
 		error_msg("Invalid map\n");
@@ -33,7 +35,6 @@ int	main(int ac, char **av)
 	mlx_hook(game.win, 02, (1L << 0), key_hook, &game);
 	mlx_hook(game.win, 17, 0, end_game, &game);
 	mlx_loop(game.mlx);
-	clean_map(&game);
 	close(fd);
 	return (0);
 }

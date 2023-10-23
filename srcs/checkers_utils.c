@@ -95,7 +95,7 @@ int	check_doubles(char **map, t_game *game)
 		}
 		i++;
 	}
-	if (game->exit < 1 || game->collectibles < 1 || game->player < 1)
+	if (game->exit != 1 || game->collectibles < 1 || game->player != 1)
 		return (0);
 	return (1);
 }

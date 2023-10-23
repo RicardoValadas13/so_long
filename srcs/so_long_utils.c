@@ -59,12 +59,23 @@ char	**append(int fd)
 		append = get_next_line(fd);
 		if (append == NULL)
 			break ;
+		else if (*append == '\n')
+		{
+			free(append);
+			free(map_str);
+			return (NULL);
+		}
 		tmp_str = map_str;
 		map_str = ft_strjoin(map_str, append);
 		free(append);
 		free(tmp_str);
 	}
-	map_mx = ft_split(map_str, '\n');
-	free(map_str);
+	if (map_str)
+	{
+		map_mx = ft_split(map_str, '\n');
+		free(map_str);
+	}
+	else
+		return (NULL);
 	return (map_mx);
 }
