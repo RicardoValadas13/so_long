@@ -20,6 +20,8 @@ void	change_block(t_game *game, int new_x, int new_y, char c)
 	game->player_x = new_x;
 	game->player_y = new_y;
 	game->map[new_y][new_x] = 'P';
+	game->moves++;
+	ft_printf("%d\n", game->moves);
 }
 
 void	move_to_empty_block(t_game *game, int new_x, int new_y)

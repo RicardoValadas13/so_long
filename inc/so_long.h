@@ -13,10 +13,10 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../mlx_mac/mlx.h"
 # include "../srcs/libft/inc/libft.h"
 // Linux keycodes
 # ifdef __linux__
+# include "../mlx_linux/mlx.h"
 #  define UP 65362
 #  define DOWN 65364
 #  define LEFT 65361
@@ -30,6 +30,7 @@
 
 // Mac keycodes
 # ifdef __APPLE__
+# include "../mlx_mac/mlx.h"
 #  define UP 126
 #  define DOWN 125
 #  define LEFT 123
@@ -55,7 +56,6 @@ typedef struct s_img
 typedef struct s_sprites
 {
 	t_img		exit;
-	t_img		exitcat;
 	t_img 		exitcatdown;
 	t_img		exitcatup;
 	t_img		exitcatleft;

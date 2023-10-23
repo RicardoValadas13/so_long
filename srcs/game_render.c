@@ -20,19 +20,27 @@ void	destroy_img(t_game	*game)
 	mlx_destroy_image(game->mlx, game->sprites.floor.img);
 	mlx_destroy_image(game->mlx, game->sprites.openexit.img);
 	mlx_destroy_image(game->mlx, game->sprites.player.img);
-
+	mlx_destroy_image(game->mlx, game->sprites.animdown.img);
+	mlx_destroy_image(game->mlx, game->sprites.animup.img);
+	mlx_destroy_image(game->mlx, game->sprites.animleft.img);
+	mlx_destroy_image(game->mlx, game->sprites.animright.img);
+	mlx_destroy_image(game->mlx, game->sprites.exitcatdown.img);
+	mlx_destroy_image(game->mlx, game->sprites.exitcatup.img);
+	mlx_destroy_image(game->mlx, game->sprites.exitcatleft.img);
+	mlx_destroy_image(game->mlx, game->sprites.exitcatright.img);
 }
 int	end_game(t_game *game)
 {
 	destroy_img(game);
 	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
 	free(game->mlx);
+	clean_map(game);
 	exit(1);
 }
 
 void	player_animation(t_game *game, int x, int y)
 {
-	printf("New block: %c\n", game->new_block);
 	if (x - game->old_x > 0 && game->new_block != '1')
 	{
 		if (game->new_block != 'E')
@@ -70,6 +78,7 @@ void	player_animation(t_game *game, int x, int y)
 				x * game->sprites.exitcatup.width, y * game->sprites.exitcatup.height);
 	}
 }
+
 void	set_game_sprites(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == '1')
@@ -123,6 +132,10 @@ void	set_game_data(t_game *game)
 	game->been_in_exit = 0;
 	game->player = 0;
 	game->flood_fill = 0;
+	game->moves = 0;
+	game->old_x = 0;
+	game->old_y = 0;
+	game->new_block = 0;
 	game->map_width = ft_strlen(game->map[0]);
 	game->map_height = height(game->map);
 	find_pos(game);

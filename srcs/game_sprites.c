@@ -16,8 +16,6 @@ void	set_sprites(t_game *game)
 {
 	game->sprites.wall.img = mlx_xpm_file_to_image(game->mlx, "img/wall.xpm",
 		&game->sprites.wall.width, &game->sprites.wall.height);
-	game->sprites.exitcat.img = mlx_xpm_file_to_image(game->mlx, "imgs/exit-cat.xpm",
-		&game->sprites.exitcat.width, &game->sprites.exitcat.height);
 	game->sprites.player.img = mlx_xpm_file_to_image(game->mlx,
 		"img/cat.xpm", &game->sprites.player.width,
 		&game->sprites.player.height);
