@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:20:20 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/20 17:37:12 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 19:31:28 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,17 @@ void	move_to_exit(t_game *game, int new_x, int new_y)
 }
 void	move_player(t_game *game, int new_x, int new_y)
 {
-	char	new_pos;
+	game->new_block = game->map[new_y][new_x];
 
-	new_pos = game->map[new_y][new_x];
-
-	if (new_pos == '0' && game->been_in_exit == 0)
+	if (game->new_block == '0' && game->been_in_exit == 0)
 		move_to_empty_block(game, new_x, new_y);
-	if (new_pos == 'C' && game->been_in_exit == 0)
+	if (game->new_block == 'C' && game->been_in_exit == 0)
 		move_to_collectible(game, new_x, new_y);
-	if (game->been_in_exit == 1 && new_pos != '1')
+	if (game->been_in_exit == 1 && game->new_block != '1')
 	{
 		change_block(game, new_x, new_y, 'E');
 		game->been_in_exit = 0;
 	}
-	if (new_pos == 'E')
+	if (game->new_block == 'E' )
 		move_to_exit(game, new_x, new_y);
 }

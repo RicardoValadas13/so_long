@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/20 17:36:44 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 19:13:18 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ typedef struct s_sprites
 {
 	t_img		exit;
 	t_img		exitcat;
+	t_img 		exitcatdown;
+	t_img		exitcatup;
+	t_img		exitcatleft;
+	t_img		exitcatright;
 	t_img		openexit;
 	t_img		collectible;
 	t_img		player;
@@ -79,6 +83,7 @@ typedef struct s_game
 	int			old_y;
 	int			player_x;
 	int			player_y;
+	char		new_block;
 	int			exit;
 	int			exit_comp;
 	int			been_in_exit;

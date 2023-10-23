@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:19:59 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/20 17:20:18 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 19:23:31 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ void	set_animsprites(t_game *game)
 	game->sprites.animright.img = mlx_xpm_file_to_image(game->mlx,
 		"imganim/catright.xpm", &game->sprites.animright.width,
 		&game->sprites.animright.height);
+	game->sprites.exitcatdown.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/exitcatdown.xpm", &game->sprites.exitcatdown.width,
+		&game->sprites.exitcatdown.height);
+	game->sprites.exitcatup.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/exitcatup.xpm", &game->sprites.exitcatup.width,
+		&game->sprites.exitcatup.height);
+	game->sprites.exitcatleft.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/exitcatleft.xpm", &game->sprites.exitcatleft.width,
+		&game->sprites.exitcatleft.height);
+	game->sprites.exitcatright.img = mlx_xpm_file_to_image(game->mlx,
+		"imganim/exitcatright.xpm", &game->sprites.exitcatright.width,
+		&game->sprites.exitcatright.height);
 }

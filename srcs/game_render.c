@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:19:54 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/20 17:38:23 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/20 19:30:03 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,43 @@ int	end_game(t_game *game)
 
 void	player_animation(t_game *game, int x, int y)
 {
-	if (x - game->old_x > 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animright.img,
-			x * game->sprites.animright.width, y * game->sprites.animright.height);
-	if (x - game->old_x < 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animleft.img,
-			x * game->sprites.animleft.width, y * game->sprites.animleft.height);
-	if (y - game->old_y > 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animdown.img,
-			x * game->sprites.animdown.width, y * game->sprites.animdown.height);
-	if (y - game->old_y < 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->sprites.animup.img,
-			x * game->sprites.animup.width, y * game->sprites.animup.height);
+	printf("New block: %c\n", game->new_block);
+	if (x - game->old_x > 0 && game->new_block != '1')
+	{
+		if (game->new_block != 'E')
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animright.img,
+				x * game->sprites.animright.width, y * game->sprites.animright.height);
+		else
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatright.img,
+				x * game->sprites.exitcatright.width, y * game->sprites.exitcatright.height);
+	}
+	if (x - game->old_x < 0 && game->new_block != '1')
+	{
+		if (game->new_block != 'E')
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animleft.img,
+				x * game->sprites.animleft.width, y * game->sprites.animleft.height);
+		else
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatleft.img,
+				x * game->sprites.exitcatleft.width, y * game->sprites.exitcatleft.height);
+	}
+	if (y - game->old_y > 0 && game->new_block != '1')
+	{
+		if (game->new_block != 'E')
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animdown.img,
+				x * game->sprites.animdown.width, y * game->sprites.animdown.height);
+		else
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatdown.img,
+				x * game->sprites.exitcatdown.width, y * game->sprites.exitcatdown.height);
+	}
+	if (y - game->old_y < 0 && game->new_block != '1')
+	{
+		if (game->new_block != 'E')
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animup.img,
+				x * game->sprites.animup.width, y * game->sprites.animup.height);
+		else
+			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatup.img,
+				x * game->sprites.exitcatup.width, y * game->sprites.exitcatup.height);
+	}
 }
 void	set_game_sprites(t_game *game, int x, int y)
 {
