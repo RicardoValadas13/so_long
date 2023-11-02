@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/11/02 12:32:12 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/11/02 12:40:10 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../srcs/libft/inc/libft.h"
 // Linux keycodes
 # ifdef __linux__
-# include "../mlx_linux/mlx.h"
+#  include "../mlx_linux/mlx.h"
 #  define UP 65362
 #  define DOWN 65364
 #  define LEFT 65361
@@ -30,7 +30,7 @@
 
 // Mac keycodes
 # ifdef __APPLE__
-# include "../mlx_mac/mlx.h"
+#  include "../mlx_mac/mlx.h"
 #  define UP 126
 #  define DOWN 125
 #  define LEFT 123
@@ -57,7 +57,7 @@ typedef struct s_sprites
 {
 	t_img		exit;
 	t_img		exitcat;
-	t_img 		exitcatdown;
+	t_img		exitcatdown;
 	t_img		exitcatup;
 	t_img		exitcatleft;
 	t_img		exitcatright;
@@ -99,11 +99,11 @@ typedef struct s_game
 
 typedef struct s_data
 {
-	char	*append;
-	char	*map_str;
-	char	*tmp_str;
-	char	**map_mx;
-}			t_data;
+	char		*append;
+	char		*map_str;
+	char		*tmp_str;
+	char		**map_mx;
+}				t_data;
 // checkers_utils.c functions
 int				check_walls(char **map, t_game *game);
 int				check_rect(char **map, t_game *game);
