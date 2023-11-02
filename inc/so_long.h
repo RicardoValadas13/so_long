@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:58 by rbenjami          #+#    #+#             */
-/*   Updated: 2023/10/20 19:13:18 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/11/02 12:32:12 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_img
 typedef struct s_sprites
 {
 	t_img		exit;
+	t_img		exitcat;
 	t_img 		exitcatdown;
 	t_img		exitcatup;
 	t_img		exitcatleft;
@@ -96,6 +97,13 @@ typedef struct s_game
 	t_sprites	sprites;
 }				t_game;
 
+typedef struct s_data
+{
+	char	*append;
+	char	*map_str;
+	char	*tmp_str;
+	char	**map_mx;
+}			t_data;
 // checkers_utils.c functions
 int				check_walls(char **map, t_game *game);
 int				check_rect(char **map, t_game *game);
@@ -125,26 +133,20 @@ int				end_game(t_game *game);
 void			set_game_window(t_game *game);
 void			set_game_data(t_game *game);
 void			set_game_sprites(t_game *game, int x, int y);
-void			set_animsprites(t_game *game);
+void			cat_exit(t_game *game, int x, int y);
 
 // game_sprites.c functions
+void			destroy_img(t_game *game);
 void			set_sprites(t_game *game);
 
 // key_handling.c functions
 int				key_hook(int keycode, t_game *game);
 
 // so_long_utils.c
+void			set_data(t_data *data);
 int				height(char **map);
-char			**append(int fd);
+char			**append(int fd, t_data *data);
 void			find_pos(t_game *game);
 int				key_hook(int keycode, t_game *game);
 
-// This is for the bonus part
-// xpm_parser.c
-typedef struct s_parser
-{
-	char		**color;
-	char		**img_bites;
-}				t_parser;
-void			xpm_parser(char *file); 
 #endif

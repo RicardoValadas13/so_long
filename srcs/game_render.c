@@ -6,29 +6,12 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:19:54 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/20 19:30:03 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/11/02 12:34:29 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	destroy_img(t_game	*game)
-{
-	mlx_destroy_image(game->mlx, game->sprites.wall.img);
-	mlx_destroy_image(game->mlx, game->sprites.exit.img);
-	mlx_destroy_image(game->mlx, game->sprites.collectible.img);
-	mlx_destroy_image(game->mlx, game->sprites.floor.img);
-	mlx_destroy_image(game->mlx, game->sprites.openexit.img);
-	mlx_destroy_image(game->mlx, game->sprites.player.img);
-	mlx_destroy_image(game->mlx, game->sprites.animdown.img);
-	mlx_destroy_image(game->mlx, game->sprites.animup.img);
-	mlx_destroy_image(game->mlx, game->sprites.animleft.img);
-	mlx_destroy_image(game->mlx, game->sprites.animright.img);
-	mlx_destroy_image(game->mlx, game->sprites.exitcatdown.img);
-	mlx_destroy_image(game->mlx, game->sprites.exitcatup.img);
-	mlx_destroy_image(game->mlx, game->sprites.exitcatleft.img);
-	mlx_destroy_image(game->mlx, game->sprites.exitcatright.img);
-}
 int	end_game(t_game *game)
 {
 	destroy_img(game);
@@ -39,44 +22,10 @@ int	end_game(t_game *game)
 	exit(1);
 }
 
-void	player_animation(t_game *game, int x, int y)
+void	cat_exit(t_game *game, int x, int y)
 {
-	if (x - game->old_x > 0 && game->new_block != '1')
-	{
-		if (game->new_block != 'E')
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animright.img,
-				x * game->sprites.animright.width, y * game->sprites.animright.height);
-		else
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatright.img,
-				x * game->sprites.exitcatright.width, y * game->sprites.exitcatright.height);
-	}
-	if (x - game->old_x < 0 && game->new_block != '1')
-	{
-		if (game->new_block != 'E')
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animleft.img,
-				x * game->sprites.animleft.width, y * game->sprites.animleft.height);
-		else
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatleft.img,
-				x * game->sprites.exitcatleft.width, y * game->sprites.exitcatleft.height);
-	}
-	if (y - game->old_y > 0 && game->new_block != '1')
-	{
-		if (game->new_block != 'E')
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animdown.img,
-				x * game->sprites.animdown.width, y * game->sprites.animdown.height);
-		else
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatdown.img,
-				x * game->sprites.exitcatdown.width, y * game->sprites.exitcatdown.height);
-	}
-	if (y - game->old_y < 0 && game->new_block != '1')
-	{
-		if (game->new_block != 'E')
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.animup.img,
-				x * game->sprites.animup.width, y * game->sprites.animup.height);
-		else
-			mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcatup.img,
-				x * game->sprites.exitcatup.width, y * game->sprites.exitcatup.height);
-	}
+	mlx_put_image_to_window(game->mlx, game->win, game->sprites.exitcat.img, x
+		* game->sprites.exitcat.width, y * game->sprites.exitcat.height);
 }
 
 void	set_game_sprites(t_game *game, int x, int y)
@@ -92,7 +41,11 @@ void	set_game_sprites(t_game *game, int x, int y)
 			game->sprites.collectible.img, x * game->sprites.collectible.width,
 			y * game->sprites.collectible.height);
 	if (game->map[y][x] == 'P')
-		player_animation(game, x, y);
+		mlx_put_image_to_window(game->mlx, game->win, game->sprites.player.img,
+			x * game->sprites.player.width, y * game->sprites.player.height);
+	if ((game->map[y][x] == 'P' && game->new_block == 'E')
+		|| (game->map[y][x] == 'P' && game->been_in_exit == 1))
+		cat_exit(game, x, y);
 	if (game->map[y][x] == 'E'
 		&& game->collectibles != game->collectibles_ingame)
 		mlx_put_image_to_window(game->mlx, game->win, game->sprites.exit.img, x

@@ -6,11 +6,12 @@
 #    By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 12:00:28 by rbenjami          #+#    #+#              #
-#    Updated: 2023/10/19 18:00:45 by ricardovala      ###   ########.fr        #
+#    Updated: 2023/10/27 13:49:39 by ricardovala      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
+NAME_BONUS = so_long_bonus
 
 UNAME := $(shell uname)
 
@@ -34,7 +35,7 @@ HEADERS_LIST = so_long.h
 HEADERS_DIRECTORY = inc/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SCRS_LIST = checkers_utils.c \
+SRCS_LIST = checkers_utils.c \
 			checkers.c \
 			error.c \
 			game_logic.c \
@@ -44,10 +45,10 @@ SCRS_LIST = checkers_utils.c \
 			so_long_utils.c \
 			so_long.c
 
-SCRS_DIRECTORY = srcs/
-SCRS = $(addprefix $(SCRS_DIRECTORY), $(SCRS_LIST))
+SRCS_DIRECTORY = srcs/
+SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 
-OBJS_LIST = $(patsubst %.c, %.o, $(SCRS_LIST))
+OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
 OBJS_DIRECTORY = objs/
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJS_LIST))
 
@@ -64,7 +65,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS_DIRECTORY) $(OBJS)
 $(OBJS_DIRECTORY):
 	mkdir -p $(OBJS_DIRECTORY)
 
-$(OBJS_DIRECTORY)%.o : $(SCRS_DIRECTORY)%.c $(HEADERS)
+$(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c $(HEADERS)
 	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT):
@@ -75,6 +76,10 @@ $(MLX):
 
 clean:
 	make -sC $(LIBFT_DIRECTORY) clean
+	rm -rf $(OBJS_DIRECTORY)
+	rm -rf $(BONUS_OBJS_DIRECTORY)
+	
+clean_objs:
 	rm -rf $(OBJS_DIRECTORY)
 
 fclean: clean
@@ -92,4 +97,4 @@ git:
 	git commit
 	git push
 	
-.PHONY  : re fclean clean all
+.PHONY  : re fclean clean all bonus

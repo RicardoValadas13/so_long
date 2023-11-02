@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:20:16 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/19 17:20:17 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/10/27 11:57:01 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	file_format(char *str)
 	else if (access(str, F_OK) != 0)
 		error_msg("File not found\n");
 }
+
 void	clean_map(t_game *game)
 {
 	int	i;

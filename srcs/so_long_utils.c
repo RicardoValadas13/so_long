@@ -6,7 +6,7 @@
 /*   By: ricardovaladas <ricardovaladas@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:20:35 by ricardovala       #+#    #+#             */
-/*   Updated: 2023/10/19 17:20:36 by ricardovala      ###   ########.fr       */
+/*   Updated: 2023/11/02 12:33:49 by ricardovala      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,36 +46,38 @@ void	find_pos(t_game *game)
 	}
 }
 
-char	**append(int fd)
+void	set_data(t_data *data)
 {
-	char	*append;
-	char	*map_str;
-	char	*tmp_str;
-	char	**map_mx;
+	data->append = NULL;
+	data->map_str = NULL;
+	data->tmp_str = NULL;
+	data->map_mx = NULL;
+}
 
-	map_str = NULL;
+char	**append(int fd, t_data *data)
+{
 	while (1)
 	{
-		append = get_next_line(fd);
-		if (append == NULL)
+		data->append = get_next_line(fd);
+		if (data->append == NULL)
 			break ;
-		else if (*append == '\n')
+		else if (ft_strncmp(data->append, "\n", ft_strlen(data->append)) == 0)
 		{
-			free(append);
-			free(map_str);
+			free(data->append);
+			free(data->map_str);
 			return (NULL);
 		}
-		tmp_str = map_str;
-		map_str = ft_strjoin(map_str, append);
-		free(append);
-		free(tmp_str);
+		data->tmp_str = data->map_str;
+		data->map_str = ft_strjoin(data->map_str, data->append);
+		free(data->append);
+		free(data->tmp_str);
 	}
-	if (map_str)
+	if (data->map_str)
 	{
-		map_mx = ft_split(map_str, '\n');
-		free(map_str);
+		data->map_mx = ft_split(data->map_str, '\n');
+		free(data->map_str);
 	}
 	else
 		return (NULL);
-	return (map_mx);
+	return (data->map_mx);
 }
